@@ -26,6 +26,7 @@ public class SqlRepositoryBuilder extends AbstractContainerBuilder {
 
     private String schemaName;
     private boolean globalIdCacheDisabled;
+    private boolean commitPkCacheDisabled;
     private boolean schemaManagementEnabled = true;
 
     private String globalIdTableName;
@@ -80,6 +81,11 @@ public class SqlRepositoryBuilder extends AbstractContainerBuilder {
      */
     public SqlRepositoryBuilder withGlobalIdCacheDisabled(boolean globalIdCacheDisabled) {
         this.globalIdCacheDisabled = globalIdCacheDisabled;
+        return this;
+    }
+
+    public SqlRepositoryBuilder withCommitPkCacheDisabled(boolean commitPkCacheDisabled) {
+        this.commitPkCacheDisabled = commitPkCacheDisabled;
         return this;
     }
 
@@ -146,7 +152,7 @@ public class SqlRepositoryBuilder extends AbstractContainerBuilder {
         bootContainer();
 
         SqlRepositoryConfiguration config =
-                new SqlRepositoryConfiguration(globalIdCacheDisabled, schemaName, schemaManagementEnabled,
+                new SqlRepositoryConfiguration(globalIdCacheDisabled, commitPkCacheDisabled, schemaName, schemaManagementEnabled,
                         globalIdTableName, commitTableName, snapshotTableName, commitPropertyTableName,
                         globalIdSequenceName, commitSequenceName, snapshotSequenceName);
         addComponent(config);
